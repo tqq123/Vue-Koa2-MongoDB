@@ -87,8 +87,8 @@
 
   export default {
     created() {
-      this.getShoppingMallInfo()
-      this.getAllGoodsInfo()
+      // 判断MongoDB是否已经存入数据
+      !localStorage.initDataBase?  this.initData() : this.getData()
     },
     data() {
       return {
@@ -124,6 +124,22 @@
       }
     },
     methods: {
+      getData () {
+        this.getShoppingMallInfo()
+        this.getAllGoodsInfo()
+      },
+      initData () {
+        const insertGoodsComments = () => axios.get('http://localhost:3000/goods/insertGoodsComments').then((res) => {})
+        const insertAllGoodsInfo = () => axios.get('http://localhost:3000/goods/insertAllGoodsInfo').then((res) => {})
+        const insertAllCategory = () => axios.get('http://localhost:3000/goods/insertAllCategory').then((res) => {})
+        const insertAllCategorySub = () => axios.get('http://localhost:3000/goods/insertAllCategorySub').then((res) => {})
+
+        const initArray = [insertGoodsComments(), insertAllGoodsInfo(), insertAllCategory(), insertAllCategorySub()]
+        Promise.all(initArray).then((res) => {
+          localStorage.initDataBase = true;
+          this.getData()
+        })
+      },
       getShoppingMallInfo () {
         axios.get(url.getShoppingMallInfo).then((res) => {
           if (res.data.errno === 0) {

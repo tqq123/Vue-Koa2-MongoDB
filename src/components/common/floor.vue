@@ -33,7 +33,7 @@
         type: String,
         default: ''
       }
-    },
+    }, 
     data () {
       return {
         floorData0: {},

@@ -18,10 +18,12 @@ router.get('/insertGoodsComments', ctx => {
       throw err
     })
   })
+  console.log("导入评论成功")
+  ctx.body = {code:200}
 })
 
 router.get('/insertAllGoodsInfo', async (ctx) => {
-  fs.readFile('./newGoods.json', 'utf8', (err, data) => {
+  fs.readFile('./data_json/newGoods.json', 'utf8', (err, data) => {
     if (err) throw err
     data = JSON.parse(data)
     let saveCount = 0
@@ -36,7 +38,8 @@ router.get('/insertAllGoodsInfo', async (ctx) => {
       })
     })
   })
-  ctx.body = '导入数据'
+  console.log("导入商品成功")
+  ctx.body = {code:200}
 })
 
 router.get('/insertAllCategory', async (ctx) => {
@@ -55,7 +58,8 @@ router.get('/insertAllCategory', async (ctx) => {
       })
     })
   })
-  ctx.body = '导入数据'
+  console.log("导入分类成功")
+  ctx.body = {code:200}
 })
 
 router.get('/insertAllCategorySub', async (ctx) => {
@@ -74,7 +78,8 @@ router.get('/insertAllCategorySub', async (ctx) => {
       })
     })
   })
-  ctx.body = '导入数据'
+  console.log("导入子分类成功")
+  ctx.body = {code:200}
 })
 
 // 商品详情
